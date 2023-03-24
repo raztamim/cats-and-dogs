@@ -9,13 +9,11 @@ import tensorflow as tf
 model = tf.keras.models.load_model('trained model.h5',compile=False)
 model.compile()
  
-#x = [[3.]]
-#y = [[4.]]
-#print('Result: {}'.format(tf.matmul(x, y)))
+
 
 #define the window 
 window = tk.Tk()
-window.geometry("450x450")
+window.geometry("800x800")
 window.title("Dogs and Cats recognition")
 #define the grid 
 frame = tk.Frame(window)
@@ -34,12 +32,12 @@ n_image = image.resize((300,300))
 photo = ImageTk.PhotoImage(n_image)
 imgLabel = tk.Label(frame,image=photo)
 imgLabel.photo = photo  
-imgLabel.grid(row=2,column=1)
+imgLabel.grid(row=2,column=1,sticky="WE")
 #define user label
-massege = "hello world! "
+massege = " "
 massegeWrapper = [massege]
 userLabel = tk.Label(frame,text=massege) 
-userLabel.grid(row=3,column=2)
+userLabel.grid(row=3,column=2,sticky="WE")
                
 #define select image button 
 def selectImage(filepatWrapper) :
@@ -67,9 +65,9 @@ def evaluateImage():
     score = tf.nn.softmax(predictions[0])
     type = predictions.argmax(axis=-1)
     if(type==0):
-        vclass = "dog"
+        vclass = "cat"
     else:
-        vclass = "cat"    
+        vclass = "dog"    
 
     userLabel.config(text="This image most likely belongs to {}  with a {:.2f} percent confidence."
     .format(vclass,100 * np.max(score)))
